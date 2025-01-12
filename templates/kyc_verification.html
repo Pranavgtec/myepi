@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+    <title>KYC Verification</title>
+</head>
+<body>
+    <h2>KYC Verification</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="kyc_doc">Upload KYC Document:</label>
+        <input type="file" name="kyc_doc" id="kyc_doc">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

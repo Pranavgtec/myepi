@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Oleo+Script:wght@400;700&family=Rubik+Vinyl&family=Sixtyfour&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <title>EPI-Sign Up</title>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        /*console.log('Form:', form);*/
+
+        if (!form) {
+            console.error('Form element not found. Ensure the form selector is correct.');
+            return;
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            // Append referral code if already provided in the popup
+            const referralCodeInput = document.getElementById('referralCodeInput');
+            if (referralCodeInput && referralCodeInput.value.trim() !== '') {
+                formData.append('referred_by', referralCodeInput.value.trim());
+            }
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                // Validate response
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('Result JSON:',result);
+
+                if (result.success) {
+                    const referralCode = result.referral_code;
+                    document.getElementById('Who_referred_by').textContent = referralCode;
+                    openReferralPopup();
+                } else {
+                    let errorMessage = 'Signup failed. Please try again.';
+                    if (result.errors) {
+                        errorMessage = Object.values(result.errors).join(', ');
+                    }
+                    alert(errorMessage);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    });
+
+    function openReferralPopup() {
+        const overlay = document.getElementById('referralOverlay');
+        const popup = document.getElementById('referralPopup');
+
+        if (overlay && popup) {
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+        } else {
+            console.warn('Referral popup elements not found.');
+        }
+    }
+
+    function closeReferralPopup() {
+        const overlay = document.getElementById('referralOverlay');
+        const popup = document.getElementById('referralPopup');
+
+        if (overlay && popup) {
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
+        } else {
+            console.warn('Referral popup elements not found.');
+        }
+    }
+
+    // Show the referral popup with the user's referral code
+    function showReferralPopup(referralCode) {
+        document.getElementById('Who_referred_by').innerText = referralCode;
+        document.getElementById('referralOverlay').style.display = 'block';
+        document.getElementById('referralPopup').style.display = 'block';
+    }
+
+    function submitReferralCode() {
+        const referralCodeInput = document.getElementById('referralCodeInput');
+        const referralCode = referralCodeInput ? referralCodeInput.value.trim() : '';
+
+        if (referralCode === '') {
+            alert('Please enter a referral code or click skip.');
+            return;
+        }
+
+        // Attach the referral code to the form as a hidden input
+        const form = document.querySelector('form');
+        if (!form) {
+            console.error('Form element not found. Ensure the form selector is correct.');
+            return;
+        }
+
+        let referredByInput = document.querySelector('input[name="referred_by"]');
+
+        if (!referredByInput) {
+            referredByInput = document.createElement('input');
+            referredByInput.type = 'hidden';
+            referredByInput.name = 'referred_by';
+            form.appendChild(referredByInput);
+        }
+
+        referredByInput.value = referralCode.trim();
+
+        alert(`Referral code ${referralCode} submitted!`);
+        closeReferralPopup();
+
+           // Redirect to the home page
+           window.location.href = '/';
+    }
+        function skipReferral() {
+            closeReferralPopup();
+
+            // Redirect to the home page
+            window.location.href = '/';
+        }
+        
+                     
+</script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        display: flex;
+        width: 80%;
+        max-width: 1200px;
+        height: 600px;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #f4f4f4;
+        box-shadow: rgba(0, 0, 0, 0.2);
+    }
+
+    .right-side {
+        flex: 1;
+        background-color: #ffffff;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        text-align: center;
+        position: relative;
+    }
+
+    .right-side .welcome-image {
+        width: 800px;
+        max-width: 500px;
+        height: 1000px;
+        border-radius: 0;
+        object-fit: cover;
+    }
+
+    .left-side {
+        flex: 1;
+        background-color: #4c4b49;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .left-side h2 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        color: #ffffff;
+        font-family: "Oleo Script", serif;
+    }
+
+    .left-side form {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 2px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: #333;
+            padding: 0px;
+        }
+
+        .form-group label {
+            font-size: 1em;
+            color: #333;
+            color: #ffffff;
+        }
+
+        .form-group input[type="file"]{
+            flex: 2;
+            padding: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: left; /* Ensures the text inside the input aligns properly*/
+            color: #333;
+        }
+
+        .form-group .form-control {
+            flex: 2;
+            width: 100%;
+            padding: 2px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 2px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            font-size: 1em;
+            color: #ffffff;
+        }
+
+        .form-check {
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .form-check-input {
+            margin-right: 10px;
+        }
+
+        .terms-link {
+            color: #007bff; /* Blue color */
+            text-decoration: none; /* Remove underline */
+            font-size: 12px; /* Set font size */
+        }
+
+        .terms-link:hover {
+            text-decoration: underline; /* Add underline on hover */
+            color: #0056b3; /* Darker blue on hover */
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            width: 150px;
+            cursor: pointer;
+            align-self: center;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #ffffff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .text-danger {
+            color: red;
+            font-size: 0.9em;
+        }
+
+    /* Popup styles */
+    .popup, .overlay {
+        display: none;
+    }
+
+    .popup {
+        position: fixed;
+        display: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+        text-align: center;
+    }
+
+    .popup button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+    .popup .close-btn {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            width: 90%;
+        }
+    }
+</style>
+</head>
+<body class="signup">
+    <div class="container">
+        <div class="left-side">
+            <h2>Register</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                </div>
+                <div class="form-group">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                </div>
+                <div class="form-group">
+                    {{ form.kyc_document_type.label_tag }}
+                    {{ form.kyc_document_type }}
+                </div>
+                <div class="form-group">
+                    {{ form.kyc_document.label_tag }}
+                    {{ form.kyc_document }}
+                </div>
+                <div class="form-group">
+                    {{ form.pan_card.label_tag }}
+                    {{ form.pan_card }}
+                </div>
+                <div class="form-group">
+                    {{ form.bank_passbook.label_tag }}
+                    {{ form.bank_passbook }}
+                </div>
+                <div class="form-check">
+                    {{ form.accept_terms }}
+                    {{ form.accept_terms.label_tag }}
+                </div>
+
+                <div>
+                    <a href="{% url 'terms' %}" target="_blank" class="terms-link">(Read our Terms and Conditions)</a>
+                </div>
+                
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+        <div class="right-side">
+            <img src="/static/images/loginimage.jpg.jpg" alt="Welcome Image" class="welcome-image">
+        </div>
+    </div>
+
+<!-- Referral Popup -->
+<div id="referralOverlay" class="overlay" style="display:none;"></div>
+<div id="referralPopup" class="popup" style="display:none;">
+    <h2>Signup Successful!</h2><br>
+    <h5>Your referral code is: <strong id="Who_referred_by"></strong></h5><br>
+    <h5>Were you referred by someone? Enter their referral code below:</h5>
+    <input type="text" id="referralCodeInput" placeholder="Referral Code" class="form-control">
+    <button onclick="submitReferralCode()">Submit</button>
+    <button onclick="skipReferral()" class="close-btn">Skip</button>
+</div>
+</body>
+</html>

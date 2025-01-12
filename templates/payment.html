@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Screen</title>
+    <style>
+        /* Your existing CSS here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        .total-amount {
+            background-color: #e0f7fa;
+            padding: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .cashback {
+            background-color: #e8f5e9;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 1em;
+        }
+        .payment-method {
+            margin: 20px 0;
+        }
+        .payment-method h3 {
+            margin: 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        .payment-method .content {
+            display: none;
+            padding: 10px;
+            background-color: #fafafa;
+        }
+        .payment-method.active .content {
+            display: block;
+        }
+        .upi-input {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .upi-input input {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .upi-input button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .pay-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <br><br><br><br>
+    <div class="container">
+        <div class="header">
+            <h2>Payments</h2>
+            <span>100% Secure</span>
+        </div>
+        <div class="total-amount" id="total-amount">Total Amount: ₹0</div>
+        <div class="cashback">5% Cashback - Claim now with payment offers</div>
+        <div class="payment-method">
+            <h3>UPI</h3>
+            <div class="content">
+                <div class="upi-input">
+                    <input type="text" placeholder="Enter your UPI ID">
+                    <button>Verify</button>
+                </div>
+                <button class="pay-button">Pay ₹<span id="pay-amount">0</span></button>
+            </div>
+        </div>
+        <div class="payment-method">
+            <h3>Credit / Debit / ATM Card</h3>
+            <div class="content">
+                <p>Add and secure cards as per RBI guidelines</p>
+                <p>5% Unlimited Cashback on Flipkart Axis Bank Credit Card</p>
+            </div>
+        </div>
+        <div class="payment-method">
+            <h3>Net Banking</h3>
+            <div class="content">
+                <!-- Net Banking content here -->
+            </div>
+        </div>
+        <div class="payment-method">
+            <h3>Wallets</h3>
+            <div class="content">
+                <!-- Wallets content here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // Listen for message from the calculate button page
+        window.addEventListener('message', function(event) {
+            if (event.data.totalAmount) {
+                // Update the total amount and pay button amount
+                document.getElementById('total-amount').textContent = 'Total Amount: ₹' + event.data.totalAmount;
+                document.getElementById('pay-amount').textContent = event.data.totalAmount;
+            }
+        });
+
+        // Toggle payment method content
+        document.querySelectorAll('.payment-method h3').forEach(function (method) {
+            method.addEventListener('click', function () {
+                this.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html> 

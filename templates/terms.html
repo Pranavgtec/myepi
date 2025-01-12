@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - Saoirse IT Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url(/static/bg\ img3.avif);
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+        header {
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 1rem;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color:white;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: white;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Saoirse IT Solutions</h1>
+    </header>
+    <nav>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="services.html">Services</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="container">
+        <h2>Terms & Conditions</h2>
+        <p><strong>Introduction:</strong></p>
+        <p>Saoirse IT Solutions is a leading software consulting, designing, developing, and branding company. Our mission is to deliver quality products and services at affordable prices while ensuring the best experience for our clients worldwide.</p>
+
+        <h3>Personal Information Collection</h3>
+        <ul>
+            <li><strong>Information You Provide:</strong> We collect and store any information you provide to use our services.</li>
+            <li><strong>Automatic Information:</strong> Information such as cookies, browsing behavior, and device interaction is automatically collected to improve our services.</li>
+        </ul>
+
+        <h3>Sharing Personal Information</h3>
+        <p>We value your privacy and do not sell your personal information. However, we may share your data with trusted third-party service providers to facilitate our services, comply with legal requirements, and protect our users and business.</p>
+
+        <h3>Using Personal Information</h3>
+        <p>Your personal information is used to improve our products, services, and personalized recommendations.</p>
+
+        <h3>Account Registration</h3>
+        <p>To use our platform, you need to register an account. This involves providing necessary details for account creation, which is free of cost.</p>
+
+        <h3>Advertising</h3>
+        <p>We use your information to display interest-based advertisements without using personally identifiable information.</p>
+
+        <h3>Selling on the Platform</h3>
+        <p>As a registered seller, you must ensure your listed items comply with intellectual property rights and provide accurate descriptions.</p>
+
+        <h3>Alteration Services</h3>
+        <p>We provide alteration services for garments purchased from us, with applicable convenience charges for pick-up and drop-off services.</p>
+    </div>
+    <footer>
+        <p>&copy; 2025 Saoirse IT Solutions | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

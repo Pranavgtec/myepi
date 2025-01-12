@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Saoirse IT Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: white;
+            padding: 1rem;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .contact-info, .form-container, .footer-content {
+            margin: 2rem 0;
+        }
+        .contact-info ul, .footer-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .contact-info li, .footer-content li {
+            margin: 0.5rem 0;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+        .form-container input, .form-container textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        footer ul {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+    <nav>
+        <a href="{% url 'index' %}">Home</a>
+    </nav>
+    <div class="container">
+        <h2>Contact Information</h2>
+        <div class="contact-info">
+            <p>Saoirse IT Solutions is a leading Software consulting, Designing, Developing company.</p>
+            <ul>
+                <li><strong>Call Us 24/7:</strong> +91 7736 471 867</li>
+                <li><strong>Make a Quote:</strong> info@saoirseitsolutions</li>
+                <li><strong>Location:</strong> 52/4649-6, Amaan Tower, Nr Vaidooriya, Gopalstreet, Kannur-670001</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Google Map -->
+    <div class="map-container">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.912698965438!2d75.35523001525906!3d11.874479741712012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba43f1e2d6c2eb9%3A0x9fa1126f3d51dc4e!2s52%2F4649-6%2C%20Amaan%20Tower%2C%20Nr%20Vaidooriya%2C%20Gopalstreet%2C%20Kannur-670001!5e0!3m2!1sen!2sin!4v1234567890123" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <h2>Quick Links</h2>
+            <ul>
+                <li><a href="{% url 'terms' %}">Terms & Conditions</a></li>
+                <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+            </ul>
+            <p><strong>Contact Us:</strong> 52/4649-6, Amaan Tower, Nr Vaidooriya, Gopalstreet, Kannur-670001</p>
+            <p><strong>Mail:</strong> info@saoirseitsolutions</p>
+            <p><strong>Phone:</strong> +91 7736 471 867 | +91 8138 099 896</p>
+            <p>&copy; All Copyright 2024 by SAOIRSE</p>
+        </div>
+    </footer>
+</body>
+</html>

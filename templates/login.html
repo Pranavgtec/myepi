@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Oleo+Script:wght@400;700&family=Rubik+Vinyl&family=Sixtyfour&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <title>EPI-Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .left-side {
+            flex: 1;
+            background-color: #ffffff;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-side .welcome-image {
+            width: 800px;
+            max-width: 500px;
+            height: 1000px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .right-side {
+            flex: 1;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #4c4b49;
+
+        }
+
+        .right-side h2 {
+            font-size: 3.1em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-family: "Oleo Script", serif;
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        .right-side form {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #007bff;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .right-side .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .right-side .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .right-side p {
+            margin-top: 15px;
+            font-size: 1em;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .right-side a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .right-side a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                width: 90%;
+            }
+
+
+            .left-side h1 {
+                font-size: 1.8em;
+            }
+
+            .left-side p {
+                font-size: 1.1em;
+            }
+
+            .right-side h2 {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .left-side, .right-side {
+                height: auto;
+                padding: 20px;
+            }
+
+            .left-side h1 {
+                font-size: 1.6em;
+            }
+
+            .left-side p {
+                font-size: 1em;
+            }
+
+            .left-side .welcome-image {
+                max-width: 300px; 
+                border-radius: 40px; 
+            }
+
+            .right-side h2 {
+                font-size: 2em;
+            }
+
+            .right-side form {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .right-side .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-side h1 {
+            font-size: 1.4em;
+            }
+
+            .left-side p {
+            font-size: 0.9em;
+            }
+
+            .left-side .welcome-image {
+            max-width: 200px; 
+            border-radius: 20px; 
+            } 
+
+            .right-side h2 {
+            font-size: 1.8em;
+            }
+
+            .right-side form {
+            max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="login">
+    <div class="container">
+        <div class="left-side">
+            <img src="/static/images/loginimage.jpg.jpg"  alt="Welcome Image" class="welcome-image">
+        </div>
+        <div class="right-side">
+            <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="{% url 'signup' %}">Register here</a></p>
+        </div>
+    </div>
+</body>
+</html>
