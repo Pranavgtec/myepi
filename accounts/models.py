@@ -27,7 +27,7 @@ class Profile(models.Model):
 class Post(models.Model):
     product_id = models.CharField(max_length=100, unique=True, null=True)
     title=models.CharField(max_length=50)
-    total = models.IntegerField(null=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     img=models.ImageField(upload_to="pics")
     desc=models.CharField(max_length=500 , null=True)
     def __str__(self):
@@ -45,7 +45,7 @@ class Referral(models.Model):
 class ProductScheme(models.Model):
     product_id = models.CharField(max_length=100, unique=True, null=True)
     investment = models.DecimalField(max_digits=10, decimal_places=2)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     days = models.IntegerField()
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField()
@@ -58,9 +58,22 @@ class ProductScheme(models.Model):
         return self.start_date + timedelta(days=self.days)
 
 class Services(models.Model):
+    product_id = models.CharField(max_length=100, unique=True, null=True)
     title=models.CharField(max_length=50)
+    total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     img=models.ImageField(upload_to="pics")
     desc=models.CharField(max_length=500 , null=True)
     def __str__(self):
         return self.title
+    
+    from django.db import models
+
+class Payment(models.Model):
+    product_scheme = models.ForeignKey(ProductScheme, on_delete=models.CASCADE,null=True)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Payment of {self.amount_paid} for {self.product_scheme.product_id}"
+
     

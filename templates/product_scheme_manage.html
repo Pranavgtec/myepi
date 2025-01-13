@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -50,7 +51,7 @@
       button:hover {
         background-color: #218838;
       }
-  
+
       /* Popup styles */
       .popup {
         display: none;
@@ -75,7 +76,7 @@
         justify-content: space-between;
         margin-top: 10px;
       }
-  
+
       /* Edit and Confirm button styles */
       .edit-btn, .confirm-btn {
         padding: 6px 12px;  /* Reduced padding */
@@ -92,14 +93,14 @@
         color: blue; /* Keep blue text on hover */
         border-color: #007bff; /* Keep blue border on hover */
       }
-  
+
       /* Add a blinking cursor effect */
       input:focus, select:focus {
         outline: none;
         border-color: #007bff;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
       }
-  
+
       /* Specific style for the Calculate button */
       #calculateButton {
         width: auto; /* Allow the width to adjust to the content */
@@ -111,11 +112,11 @@
         border-radius: 5px;
         cursor: pointer;
       }
-  
+
       #calculateButton:hover {
         background-color: #218838;
       }
-  
+
     </style>
   </head>
   <body>
@@ -138,12 +139,12 @@
         </div>
         <div class="form-group">
           <label for="total">Total:</label>
-          <input type="text" id="total" placeholder="Enter Total" required readonly="">
+          <input type="text" id="total" placeholder="Enter Total" required readonly="" value="{{ total }}">
         </div>
         <button type="submit" id="calculateButton">Calculate</button>
       </form>
     </div>
-  
+
     <!-- Popup for Editing the Details -->
     <div class="popup" id="popup" style="display: none;">
       <div class="popup-content">
@@ -162,7 +163,7 @@
         </div>
       </div>
     </div>
-  
+
     <script>
       // Function to calculate the number of days between two dates
       function calculateDays(startDate, endDate) {
@@ -171,11 +172,11 @@
         const timeDiff = end - start;
         return timeDiff / (1000 * 3600 * 24); // Convert milliseconds to days
       }
-  
+
       // Show the popup when "Calculate" is clicked
       document.getElementById('schemeForm').addEventListener('submit', function (e) {
         e.preventDefault();
-  
+
         const productId = document.getElementById('product_id').value;
         const investment = document.getElementById('investment').value;
         const startDate = new Date(); // Use current date for starting date
@@ -183,10 +184,10 @@
         endDate.setDate(startDate.getDate() + 30); // Assuming 30 days for example
         const days = calculateDays(startDate, endDate); // Calculate the days dynamically
         const total = investment * days; // Calculate the total (customize as needed)
-  
+
         // Format dates to dd-mm-yyyy
         const formatDate = (date) => date.toLocaleDateString('en-GB');
-  
+
         // Populate the popup with values
         document.getElementById('popup_product_id').innerText = productId;
         document.getElementById('popup_investment').innerText = investment;
@@ -194,53 +195,56 @@
         document.getElementById('popup_end_date').innerText = formatDate(endDate);
         document.getElementById('popup_days').innerText = days; // Show the calculated number of days
         document.getElementById('popup_total').innerText = total;
-  
+
         // Show the popup
         document.getElementById('popup').style.display = 'flex';
       });
-  
+
       // Edit button logic: Close the popup and enable fields for editing
       document.getElementById('editBtn').addEventListener('click', function () {
         // Hide the popup
         document.getElementById('popup').style.display = 'none';
-  
+
         // Enable form fields for editing
         document.getElementById('investment').disabled = false;
-  
+
         // Focus on the first editable field (Investment dropdown) and show cursor
         document.getElementById('investment').focus();
       });
-  
+
       // Confirm button logic: Save and close the popup
       document.getElementById('confirmBtn').addEventListener('click', function () {
         const investment = document.getElementById('investment').value;
         const total = investment * 30; // Recalculate the total
-  
+
         // Update the total field in the popup
         document.getElementById('popup_total').innerText = total;
-  
+
         // Show alert confirming that the data is saved
         alert('Data saved!');
-  
+
         // Hide the popup
         document.getElementById('popup').style.display = 'none';
       });
-  
+
       // Attach event listeners to all "View More" buttons
       document.querySelectorAll('.buy-btn').forEach(button => {
         button.addEventListener('click', function () {
           const productId = this.getAttribute('data-product-id');
           const investment = this.getAttribute('data-investment');
-  
+
           // Populate the fields in the form
           document.getElementById('product_id').value = productId;
           document.getElementById('investment').value = investment;
-  
+
           // Automatically calculate total based on investment and 30 days
           const total = investment * 30; // Assuming 30 days
           document.getElementById('total').value = total;
+
+          // Redirect to scheme page
+          window.location.href = 'scheme.html?product_id=' + productId + '&investment=' + investment;
         });
       });
     </script>   
   </body>
-  </html>
+</html>

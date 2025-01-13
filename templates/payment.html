@@ -99,7 +99,7 @@
             <span>100% Secure</span>
         </div>
         <div class="total-amount" id="total-amount">Total Amount: ₹0</div>
-        <div class="cashback">5% Cashback - Claim now with payment offers</div>
+        
         <div class="payment-method">
             <h3>UPI</h3>
             <div class="content">
@@ -131,15 +131,15 @@
         </div>
     </div>
     <script>
-        // Listen for message from the calculate button page
-        window.addEventListener('message', function(event) {
-            if (event.data.totalAmount) {
-                // Update the total amount and pay button amount
-                document.getElementById('total-amount').textContent = 'Total Amount: ₹' + event.data.totalAmount;
-                document.getElementById('pay-amount').textContent = event.data.totalAmount;
-            }
-        });
-
+        // Retrieve the total amount from local storage
+        const totalAmount = localStorage.getItem('totalAmount');
+    
+        if (totalAmount) {
+            // Update the total amount and pay button amount
+            document.getElementById('total-amount').textContent = 'Total Amount: ₹' + totalAmount;
+            document.getElementById('pay-amount').textContent = totalAmount;
+        }
+    
         // Toggle payment method content
         document.querySelectorAll('.payment-method h3').forEach(function (method) {
             method.addEventListener('click', function () {
@@ -147,5 +147,6 @@
             });
         });
     </script>
+    
 </body>
 </html> 

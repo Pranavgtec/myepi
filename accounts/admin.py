@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Post, Referral, ProductScheme,Services
+from .models import Payment, Profile, Post, Referral, ProductScheme,Services
 
 # Register your models here.
 
@@ -27,3 +27,4 @@ admin.site.register(Profile,ProfileAdmin)
 admin.site.register(Referral,ReferralAdmin)
 admin.site.register(Post,PostAdmin)
 admin.site.register(Services,ServicesAdmin)
+admin.site.register(Payment)

@@ -457,11 +457,24 @@
         </div>
 
 
-        <!-- Product Details Heading -->
-        <h2 class="product-heading">Product Details</h2>
+        
     
-        <!-- Dynamic Project Cards -->
-        <div class="content"> <h2 class="product-heading">Product Details</h2> <div class="card-container"> {% for post in post %} <div class="card"> <img src="{{ post.img.url }}" class="card-img" alt="product image"> <div class="card-body"> <h5 class="card-title">{{ post.title }}</h5> <p class="card-description">{{ post.desc }}</p> <a href="{% url 'product_scheme_manage' %}?id={{ post.id }}&total={{ post.total }}" class="buy-btn">View</a> </div> </div> {% endfor %} </div> </div>
+        <div class="content">
+            <h2 class="product-heading">Product Details</h2>
+            <div class="card-container">
+                {% for post in posts %}
+                <div class="card">
+                    <img src="{{ post.img.url }}" class="card-img" alt="product image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-description">{{ post.desc }}</p>
+                        <a href="{% url 'product_scheme_manage' %}?id={{ post.id }}&total={{ post.total }}" class="buy-btn">View</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
 
     <!-- Chat Button -->
     <button class="chat-button" onclick="toggleChat()">💬 Live Chat</button>

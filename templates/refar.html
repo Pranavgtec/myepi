@@ -1,25 +1,72 @@
-<!-- referral.html -->
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referral Program</title> 
+    <title>Referral Program</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .card-header, .modal-header {
+            background-color: rgba(0, 123, 255, 0.8); /* Transparent blue */
+            color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            color: #333;
+        }
+        .btn-primary {
+            background-color: rgba(0, 123, 255, 0.8); /* Transparent blue */
+            border-color: rgba(0, 123, 255, 0.8); /* Transparent blue */
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .badge.bg-success {
+            background-color: rgba(0, 123, 255, 0.8); /* Transparent blue */
+            color: #fff;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f9f9f9;
+        }
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: #fff;
+        }
+    </style>
+    
 </head>
 <body>
     <div class="container mt-5">
-        <div class="text-center">
-            <h1 class="mb-4">Referral Program</h1>
+        <div class="text-center mb-4">
+            <h1 class="display-4">Referral Program</h1>
             <p>Earn rewards by referring your friends! Share your unique link and track your referrals below.</p>
         </div>
 
         <!-- Referral Details Section -->
-        <div class="card mb-4">
-            <div class="card-body">
+        <div class="card shadow-sm">
+            <div class="card-header">
                 <h4 class="card-title">Referral Details</h4>
+            </div>
+            <div class="card-body">
                 <p><strong>Referral Code:</strong> <span id="referral-code">{{ user.profile.referral_code }}</span></p>
                 <p><strong>Referrals Made:</strong> <span id="referrals-made" class="badge bg-success">{{ referral_count }}</span></p>
                 <p><strong>Total Rewards Earned:</strong> $<span id="rewards-earned">{{ rewards_earned }}</span></p>
@@ -29,9 +76,11 @@
         </div>
 
         <!-- Referred Persons Table -->
-        <div class="card">
-            <div class="card-body">
+        <div class="card shadow-sm">
+            <div class="card-header">
                 <h4 class="card-title">Referred Persons</h4>
+            </div>
+            <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -67,7 +116,7 @@
                     <div class="d-flex justify-content-center gap-3">
                         <a href="#" class="btn btn-primary" data-platform="facebook">Facebook</a>
                         <a href="#" class="btn btn-info" data-platform="twitter">Twitter</a>
-                        <a href="#" class="btn btn-warning" data-platform="whatsapp">WhatsApp</a>
+                        <a href="#" class="btn btn-success" data-platform="whatsapp">WhatsApp</a>
                         <a href="#" class="btn btn-danger" data-platform="email">Email</a>
                     </div>
                 </div>
@@ -78,7 +127,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'javascript/script.js' %}"></script>
     <script>
-        // JavaScript to handle sharing and copying
         document.addEventListener('DOMContentLoaded', () => {
             const shareButtons = document.querySelectorAll('.btn[data-platform]');
             const referralCode = document.getElementById('referral-code').textContent;

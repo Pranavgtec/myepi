@@ -13,30 +13,6 @@ from django.contrib.auth import logout
 from decimal import Decimal
 from datetime import datetime, timedelta
 
-# View to handle Product Scheme Management
-# def product_scheme_manage(request):
-#     product_id = request.GET.get('id')
-#     total = request.GET.get('total')
-
-#     if request.method == 'POST':
-#         form = ProductSchemeForm(request.POST)
-#         if form.is_valid():
-#             scheme = form.save(commit=False)
-#             scheme.start_date = datetime.now()
-#             scheme.end_date = scheme.start_date + timedelta(days=form.cleaned_data['days'])
-#             scheme.save()
-#             return redirect('payment_screen')
-#         else:
-#             print(f"Form errors: {form.errors}")  # Debugging line
-#     else:
-#         form = ProductSchemeForm(initial={'product_id': product_id, 'total': total})
-
-#     return render(request, 'product_scheme_manage.html', {
-#         'form': form,
-#         'product_id': product_id,
-#         'total': total
-#     })
-
 def payment_screen(request):
     return render(request, 'payment.html')
 
@@ -46,7 +22,7 @@ def generate_referral_code():
 
 def signup_view(request):
     if request.user.is_authenticated:
-        return redirect('index')  # Redirect authenticated users to home
+        return redirect('index')
 
     if request.method == 'POST':
         form = SignupForm(request.POST, request.FILES)
@@ -55,11 +31,10 @@ def signup_view(request):
             user.set_password(form.cleaned_data['password'])
             user.save()
 
-            # Create profile with referral code and save KYC details
             referral_code = generate_referral_code()
             referred_by = request.POST.get('referred_by', None)
-
             referred_by_profile = None
+
             if referred_by:
                 try:
                     referred_by_profile = Profile.objects.get(referral_code=referred_by)
@@ -69,17 +44,16 @@ def signup_view(request):
             profile = Profile.objects.create(
                 user=user,
                 referral_code=referral_code,
-                referred_by=request.POST.get('referred_by', None),
+                referred_by=referred_by_profile,
                 kyc_document=form.cleaned_data.get('kyc_document'),
                 kyc_document_type=form.cleaned_data.get('kyc_document_type'),
                 pan_card=form.cleaned_data.get('pan_card'),
                 bank_passbook=form.cleaned_data.get('bank_passbook'),
             )
 
-            # Track referral and rewards
             if referred_by_profile:
                 referred_by_profile.referrals_made += 1
-                referred_by_profile.rewards_earned += 10.00  # Example reward
+                referred_by_profile.rewards_earned += Decimal('10.00')
                 referred_by_profile.save()
                 Referral.objects.create(referred_by=referred_by_profile, referred_user=user)
 
@@ -88,18 +62,16 @@ def signup_view(request):
             return JsonResponse({'success': True, 'referral_code': referral_code})
 
         else:
-            # Process form errors and send them as JSON response
             errors = {
                 field: [error['message'] for error in error_list]
                 for field, error_list in form.errors.get_json_data().items()
             }
-            return JsonResponse({'success': True, 'referral_code': referral_code})
+            return JsonResponse({'success': False, 'errors': errors})
 
     else:
         form = SignupForm()
 
     return render(request, 'signup.html', {'form': form})
-
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -121,24 +93,19 @@ def login_view(request):
 
 @login_required
 def profile_view(request):
-    # Fetch user profile data
     profile = request.user.profile
     return render(request, 'profile.html', {'profile': profile})
-
 
 def logout_view(request):
     logout(request)
     return redirect('login')
 
 def index(request):
-    dict_eve = {
-        'post': Post.objects.all()
-    }
-    return render(request, 'index.html', dict_eve)
+    posts = Post.objects.all()
+    return render(request, 'index.html', {'posts': posts})
 
 def about(request):
     return render(request, 'about.html')
-
 
 def terms(request):
     return render(request, 'terms.html')
@@ -152,7 +119,6 @@ def privacy(request):
 def refar(request):
     return render(request, 'refar.html')
 
-
 def services_view(request):
     services = Services.objects.all()
     return render(request, 'services.html', {'services': services})
@@ -161,16 +127,13 @@ def services_view(request):
 def referral_view(request):
     user_profile = Profile.objects.get(user=request.user)
 
-    # Generate referral code if not already set
     if not user_profile.referral_code:
         user_profile.referral_code = generate_referral_code()
 
-    # Fetch referral details
     referrals = Referral.objects.filter(referred_by=user_profile)
     referral_count = referrals.count()
     total_rewards = user_profile.rewards_earned
 
-    # Collect referred persons' details
     referred_persons = [
         {
             'name': referral.referred_user.username,
@@ -187,20 +150,23 @@ def referral_view(request):
     }
     return render(request, 'refar.html', context)
 
-
-
-
 def product_scheme_manage(request):
     product_id = request.GET.get('id')
     total = request.GET.get('total')
-    
+
     if product_id:
-        # Fetch the product info based on ID
         try:
             post = Post.objects.get(id=product_id)
+            product_id = post.product_id
+            total = post.total
         except Post.DoesNotExist:
-            post = None
-            total = None
+            try:
+                service = Services.objects.get(id=product_id)
+                product_id = service.product_id
+                total = service.total
+            except Services.DoesNotExist:
+                product_id = None
+                total = None
 
     if request.method == 'POST':
         form = ProductSchemeForm(request.POST)
@@ -209,15 +175,12 @@ def product_scheme_manage(request):
             scheme.start_date = datetime.now()
             scheme.end_date = scheme.start_date + timedelta(days=form.cleaned_data['days'])
             scheme.save()
-            return redirect('payment_screen')
-        else:
-            print(f"Form errors: {form.errors}")  # Debugging line
+            return redirect('payment')
     else:
         form = ProductSchemeForm(initial={'product_id': product_id, 'total': total})
 
     return render(request, 'product_scheme_manage.html', {
         'form': form,
         'product_id': product_id,
-        'total': total,
-        'post': post
+        'total': total
     })
