@@ -1,0 +1,478 @@
+body {
+    background-image: url(/static/bg\ img3.avif);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+*{
+    box-sizing:content-box;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 2;
+    margin: 60px auto;
+    text-align: center;
+    width:fit-content;
+    
+}
+.header_section {
+    padding: 15px 0;
+}
+
+.header_section .container-fluid {
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+.hero_area {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;}
+
+.bg-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+} 
+
+
+.carousel-inner .item img {
+    opacity: 0.6; /* Set opacity to 0.6 (default is 1) */
+    transition: opacity 0.5s ease-in-out; /* Optional: smooth transition */
+}
+
+
+.carousel-caption {
+    margin-top: 70px;
+    background-color:transparent;
+    right: 20%;
+    left: 20%;
+    padding-bottom: 80px;
+}
+
+
+.carousel-caption.top-caption {
+    position: absolute;
+    top: 10%; /* Position at the top of the image */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #000; /* Change text color to black */
+    width: 100%; /* Ensures caption spans the width of the image */
+    padding: 10px;
+     /* Light transparent background for readability */
+}
+
+.carousel-caption.top-caption h2 {
+    font-size: 3rem; /* Increased font size */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.carousel-caption.top-caption p {
+    font-size: 1.4rem; /* Adjusted font size for better readability */
+    margin: 0;
+}
+
+.nav-bar{
+
+    background:none;
+    background-size:12px;
+    padding:12px;
+    text-align:center;
+    
+}
+.navbar-brand{
+    font-size: 30px;
+    font-family: cursive;
+    color:black;
+}
+.nav-bar ul{
+    font-size: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    list-style:none;
+    margin:10;
+    padding:0;
+    display:flex;
+    justify-content:center;
+}
+
+li:hover{
+    size: 22px;
+    text-decoration: none;
+}
+
+.nav-bar li{
+    margin-right:20px;
+}
+.content {
+    padding: 20px;
+    object-fit: cover;
+    
+}
+.project-card1 {
+    background-color:transparent;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Card heading */
+.project-card h3, .project-card h5 {
+    font-size: 4.25rem;
+    font-weight: bold;
+    color: #f5eeee;
+}
+
+/* Card image styling */
+.card-img-top {
+    width: 70%;  /* Decrease width by 10% */
+    height: auto;  /* Maintain aspect ratio */
+    border-radius: 8px;
+    border: -5px;  /* Set border thickness and color */
+    margin-bottom: 15px;
+    display: block;  /* Ensures the image behaves like a block-level element */
+    margin-left: auto;  /* Centers the image horizontally */
+    margin-right: auto; /* Centers the image horizontally */
+    background: transparent; /* Ensure there’s no background */
+}
+
+/* Styling for the video container */
+.video-container {
+    width: 100%;
+    max-height: 300px; /* Limits the height of the video */
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Video styling */
+.card-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video fills the space properly */
+    border-radius: 8px;
+}
+
+/* Card description */
+.project-card p {
+    font-size: 2rem;
+    color: white;
+    line-height: 1.6;
+}
+
+/* Card container and layout  this is the starting of carting card  */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Create responsive grid layout */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card design */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+transform: translateY(-5px); /* Slight lift on hover */
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.card-img {
+width: 100%;
+height: 250px;
+object-fit: cover; /* Ensure the image is cropped correctly */
+}
+
+.card-body {
+padding: 15px;
+}
+
+.card-title {
+font-size: 1.25rem;
+color: #333;
+margin: 10px 0;
+font-family: 'Arial', sans-serif;
+}
+
+.card-description {
+font-size: 1rem;
+color: #555;
+margin-bottom: 15px;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+}
+
+/* Explore button container */
+.explore-container {
+text-align: center;
+margin: 20px 0; /* Add spacing from the card grid */
+}
+
+/* Explore button styling */
+.explore-btn {
+display: inline-block;
+background-color: #ff9900; /* Amazon-like yellow color */
+color: white;
+border: none;
+padding: 12px 20px;
+font-size: 1rem;
+cursor: pointer;
+border-radius: 5px;
+text-decoration: none; /* Remove underline from the link */
+transition: background-color 0.3s;
+}
+
+.explore-btn:hover {
+background-color: #cc7a00; /* Darker yellow on hover */
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color:#222;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    width: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.chat-popup textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.chat-popup button {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/*qustion listing */
+
+.faq-list {
+    list-style: none;
+    padding: 0;
+}
+
+.faq-list li {
+    padding: 10px;
+    background-color: #f8f9fa;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.faq-list li:hover {
+    background-color: #007bff;
+    color: black;
+}
+
+.chat-history {
+    margin-bottom: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.chat-history .user-message,
+.chat-history .bot-message {
+    margin: 5px 0;
+}
+
+.user-message {
+    text-align: right;
+    color: #007bff;
+}
+
+.bot-message {
+    text-align: left;
+    color: #333;
+}
+
+footer {
+    background-color: #333; 
+    color: #fff;
+    text-align: center;
+    padding: 10px; 
+    margin: 0; 
+    width: 100%; 
+    background-image: none; 
+}
+
+
+a {
+    text-decoration: none;
+    color:#f4f4f4;
+}
+
+.social-links a {
+    display: inline-block; /* Ensures the icons are inline and aligned */
+    margin-right: 10px; /* Consistent spacing */
+}
+
+/* Icon styling */
+.social-links i {
+    font-size: 24px;
+    color: #fff; /* Default color */
+}
+
+/* Ensure layout consistency */
+.social-links a:focus,
+.social-links a:visited,
+.social-links a:active {
+    color: #fff; /* Prevent any style changes for visited/active states */
+}
+
+.item{
+    height: 100%;
+    width: 100%;
+}
+h5{
+    color: #f4f4f4;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xx-large;
+} 
+
+.header-top-wrp { 
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background-color: #000;/* background color for the header */
+    padding: 10px; color: white; /* default text color */
+}
+.info
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.info li
+{ margin-right: 15px;
+}
+.info li svg
+{
+    margin-right: 5px;
+}
+.link-info
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.link-info li
+{
+    margin-left: 15px;
+} 
+.link-info li a
+{ color: white;
+    text-decoration: none;
+}
+
+/* projecty card 2*/
+@media (max-width: 768px) {
+    .project-card2 {
+        flex-direction: column; /* Stack image and text vertically */
+        text-align: center; /* Center-align content */
+    }
+    .project-card-content2 {
+        padding: 10px;
+    }
+}
+.project-card2 {
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Vertically align content in the center */
+    padding: 20px;
+    margin: 20px 0;
+    margin-bottom: 100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Image container */
+.project-card-image2 {
+    flex: 1; /* Take up one part of the available space */
+    text-align: center; /* Center the image horizontally */
+    padding: 10px;
+}
+
+.project-card-image2 img {
+    max-width: 100%; /* Ensure image scales correctly */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Add rounded corners */
+}
+
+/* Content container */
+.project-card-content2 {
+    flex: 2; /* Take up more space for text */
+    padding:0px;
+    text-align: left;
+}
+
+.project-card-content2 h3 {
+    font-size: 2.5rem;
+    color: #f4f4f4;
+    margin-bottom: 100px;
+    font-family: 'Arial', sans-serif;
+}
+
+.project-card-content2 p {
+    text-align: center;
+    font-size: 1.5rem;
+    color:#f5eeee;
+    margin: 0px;
+    margin-bottom: 90px;
+    line-height: 1.5;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+}
